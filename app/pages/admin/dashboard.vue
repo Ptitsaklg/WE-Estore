@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useWebSocket } from "@vueuse/core"
 import { LineChart } from "@/components/ui/chart-line"
+const config = useRuntimeConfig();
 
 definePageMeta({
   layout: 'admin'
@@ -15,7 +16,7 @@ const { data: dashboardData, refresh } = await useFetch("/api/admin/dashboard/da
   },
 })
 
-const wsUrl = "ws://localhost:3000/api/admin/dashboard/_ws"
+const wsUrl = `${config.public.wsUrl}/api/admin/dashboard/_ws`;
 const { data: wsData, status, open, close } = useWebSocket(wsUrl, {
   autoReconnect: true,
 })
