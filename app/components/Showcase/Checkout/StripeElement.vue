@@ -1,7 +1,8 @@
 <script setup>
 import { useWebSocket } from '@vueuse/core'
+const config = useRuntimeConfig();
 
-const wsUrl = 'ws://localhost:3000/api/admin/dashboard/_ws';
+const wsUrl = `${config.public.wsUrl}/api/admin/dashboard/_ws`;
 const { status, data: wsData, send, open, close } = useWebSocket(wsUrl);
 
 const { stripe } = useClientStripe();
