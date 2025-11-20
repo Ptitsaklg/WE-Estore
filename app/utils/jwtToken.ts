@@ -5,7 +5,7 @@ function jwtPayload(userId: number) {
     iss: "userName",
     sub: userId,
     aud: userId,
-    exp: Math.floor(Date.now() / 1000) + 60 * 60 + 60 * 60,
+    exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
     iat: Math.floor(Date.now() / 1000),
 
   };

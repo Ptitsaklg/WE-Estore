@@ -18,17 +18,15 @@ export default defineEventHandler(async (event) => {
   })
 
   try {
-    productData.forEach(async (product: any) => {
+    for (const product of productData) {
       await prisma.payment.create({
         data: {
-          productId: product?.id,
-          userId: userData?.id,
-          amount: parseFloat(product?.price.toString(
-
-          ))
+          productId: product.id,
+          userId: userData.id,
+          amount: Number(product.price)
         }
-      })
-    });
+      });
+    }
 
     paymentIntent = await stripe.paymentIntents.create({
       currency: "usd",
@@ -46,6 +44,7 @@ export default defineEventHandler(async (event) => {
       message: 'payment processed sucessfully !'
     };
   } catch (e) {
+    console.error("Stripe payment error:", e);
     return {
       clientSecret: null,
       error: e,
