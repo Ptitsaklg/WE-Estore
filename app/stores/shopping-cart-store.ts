@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 
+
 interface UserCookie {
   data?: {
     user?: {
@@ -16,10 +17,7 @@ export const useShoppingCartStore = defineStore('shopping-cart-store', () => {
   const totalPrice = ref(0);
   const defaultQuantity = ref(1);
 
-  const userCookie = useCookie<UserCookie>('user', {
-    sameSite: 'none',
-    secure: true
-  })
+  const userCookie = useCookie<UserCookie>('user', userCookieSettings);
   const userId = computed(() => userCookie.value?.data?.user?.id ?? 'guest');
   const cartKey = computed(() => `cartData_${userId.value}`);
 
